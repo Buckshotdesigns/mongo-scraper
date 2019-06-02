@@ -15,6 +15,10 @@ var ArticleSchema = new Schema({
   url: {
     type: String,
     required: true
+  },
+  saved: {
+    type: Boolean,
+    default: false
   }
 });
 var Article = mongoose.model("Article", ArticleSchema);

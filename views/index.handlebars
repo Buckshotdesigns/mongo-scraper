@@ -20,6 +20,15 @@
     </div>
 </div>
 <div class="container-fluid article-container">
+    
+        {{#each articles}}
+            <h4>{{this.headline}}</h4>
+                <p>{{this.summary}}</p>
+                    <a href={{this.url}} target="_blank"> {{this.url}}</a>
+                    </br>
+                        <button type= "button" class="btn btn-success save-button" data-id={{this.id}}>Save Article</button>
+        {{/each}}
+   
 </div>
 
 <footer class="footer">
