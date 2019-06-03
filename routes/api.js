@@ -1,13 +1,44 @@
-var express = require("express");
 
 var db = require("../models");
 var axios = require("axios");
 var cheerio = require("cheerio");
 
-var app = express();
-
-
-    app.get("/scrape", function(req, res) {
+module.exports = function(app) {
+    
+//   app.get("/", function (req, res) {
+//     db.Article.find({}).sort({
+//         "_id": -1
+//     }).then(function (dbArticle) {
+//         res.render("index", {
+//             data: dbArticle
+//         });
+        
+//     }).catch(function (err) {
+//         res.json(err)
+//     });
+// });
+app.get("/", function(req, res) {
+  // Grab every document in the Articles collection
+      db.Article.find({})
+          .then(function(data) {
+          // If we were able to successfully find Articles, send them back to the client
+  
+          var hbsObject = {
+              articles: data,
+              };
+          
+              console.log(hbsObject);
+              res.render("index", hbsObject);
+          })
+          .catch(function(err) {
+          // If an error occurred, send it to the client
+              res.json(err);
+          });
+  });
+  
+  
+  
+  app.get("/scrape", function(req, res) {
         axios.get("http://www.nytimes.com/").then(function(response) {
       console.log("scraper run")
     var $ = cheerio.load(response.data);
@@ -21,40 +52,36 @@ var app = express();
       } else {
         summary = $(this).find("p").text();
       };
-  
+      
       result.headline = $(this).find("h2").text();
       result.summary = summary;
       result.url = "https://www.nytimes.com" + $(this).find("a").attr("href");
       
-        db.Article.create(result)
-          .then(function(dbArticle) {
-            console.log(dbArticle);
-          })
-          .catch(function(err) {
-            console.log(err);
-          });
-      });
-      res.send("Scrape Complete");
-    
-    });
-  });
-  app.get("/articles", function(req, res) {
-    // Grab every document in the Articles collection
-    db.Article.find({})
-    .then(function(scrapedData) {
-      var hbsObject = {articles:scrapedData};
-        console.log(hbsObject)
-        res.render("index",hbsObject);
-        })
-      .catch(function(err) {
-        // If an error occurred, send it to the client
-        res.json(err);
-      });
+      db.Article.findOne({
+        headline: result.headline,
+        summary: result.summary,
+        url: result.url 
+      }).then(function (dbArticle) {
+        if (dbArticle) {
+            console.log(dbArticle.headline + " already in db!")
+        } else {
+            //create new one
+            db.Article.create(result).then(function (dbArticle) {
+                
+                
+            })
+        }
+      }).catch(function (err) {
+        
+        console.log(err)
+      })
+    })
+      res.send("scrape complete")
   });
 
-  app.get("/", function(req,res){
-    res.render("index")
 });
+    
+  
   
   // Route for grabbing a specific Article by id, populate it with it's note
 //   app.get("/articles/:id", function(req, res) {
@@ -92,4 +119,4 @@ var app = express();
 //       });
 //   });
   
-module.exports = app;
+}

@@ -6,11 +6,9 @@ var ArticleSchema = new Schema({
   headline: {
     type: String,
     required: true,
-    unique: true
   },
   summary: {
-    type: String,
-    required: true
+    type: String
   },
   url: {
     type: String,
