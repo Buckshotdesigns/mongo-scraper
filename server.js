@@ -29,6 +29,9 @@ app.engine(
 
 // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/mongo-scraper", { useNewUrlParser: true });
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongo-scraper";
+
+mongoose.connect(MONGODB_URI);
 
 app.listen(PORT, function(){
     console.log("Listening on port" + PORT);
