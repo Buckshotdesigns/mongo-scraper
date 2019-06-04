@@ -6,3 +6,19 @@ float: right;
 .top-buttons li{
     margin: 1rem;
 }
+#article {
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+}
+
+#titleinput, #bodyinput {
+    margin: 1rem 0;
+    padding: 1rem 2rem;
+}
+
+#savenote {
+    background-color: #3172b0;
+    border-radius: .5rem;
+    color: #ffffff;
+    padding: .5rem 1rem;
+}

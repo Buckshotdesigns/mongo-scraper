@@ -1,11 +1,11 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid"></div>
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Mongo-Scraper</a>
+            <a class="navbar-brand" href="">Mongo-Scraper</a>
         </div>
         <ul class="nav top-buttons">
             <li><button class="btn btn-warning scrape">Scrape Articles!</button></li>
-            <li><button class="btn btn-warning saved">Saved Articles</button></li>
+            <li><a href="/saved"><button class="btn btn-warning saved">Saved Articles</button></a></li>
         </ul>
     </div>
 </nav>
@@ -20,19 +20,25 @@
     </div>
 </div>
 <div class="container-fluid article-container">
-    
+        {{#unless saved}}
         {{#each articles}}
+        <div id="article" class="container-fluid text-center">
             <h4>{{this.headline}}</h4>
-                <p>{{this.summary}}</p>
-                    <a href={{this.url}} target="_blank"> {{this.url}}</a>
+                <p class="mb-2">{{this.summary}}</p>
+                    <a  href={{this.url}} target="_blank"> {{this.url}}</a>
                     </br>
-                        <button type= "button" class="btn btn-success save-button" data-id={{this.id}}>Save Article</button>
+                    <div class="button-div mt-4">
+                        <button type= "button" class="btn btn-info save-button" data-id={{this.id}}>Save Article</button>
+                    
+                        <button type= "button" class="btn btn-danger delete-button " data-id={{this.id}}>Delete Article</button>
+                    </div>
+        </div>
         {{/each}}
-   
+        {{/unless}}
 </div>
 
 <footer class="footer">
-    <div class="container">
+    <div class="container text-center">
         <p>New York Times Mongo Scraper</p>
     </div>
 </footer>

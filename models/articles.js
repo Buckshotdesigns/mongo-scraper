@@ -5,10 +5,11 @@ var ArticleSchema = new Schema({
   
   headline: {
     type: String,
-    required: true,
+    required: true
   },
   summary: {
-    type: String
+    type: String,
+    required: true
   },
   url: {
     type: String,
@@ -17,6 +18,10 @@ var ArticleSchema = new Schema({
   saved: {
     type: Boolean,
     default: false
+  },
+  note: {
+    type: Schema.Types.ObjectId,
+    ref: "Note"
   }
 });
 var Article = mongoose.model("Article", ArticleSchema);

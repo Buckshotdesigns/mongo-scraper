@@ -1,11 +1,11 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid"></div>
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">saved articles</a>
+            <a class="navbar-brand" href="/">Home</a>
         </div>
         <ul class="nav top-buttons">
-            <li><button class="btn btn-warning scrape">Scrape Articles!</button></li>
-            <li><button class="btn btn-warning saved">Saved Articles</button></li>
+            
+            
         </ul>
     </div>
 </nav>
@@ -15,15 +15,46 @@
     <div class="background-image">
     </div>
     <div id="caption">
-        <h1>Mongo Scraper</h1>
+        <h1>Saved Articles</h1>
         <p>New York Times Edition</p>
     </div>
 </div>
 <div class="container-fluid article-container">
+    {{#each articles}}
+        {{#if saved}}
+        
+            <h4>{{this.headline}}</h4>
+                <p>{{this.summary}}</p>
+                    <a href={{this.url}} target="_blank"> {{this.url}}</a>
+                    
+                        <button type= "button" class="btn btn-primary note-button" data-id={{this.id}}>Add Note</button>
+                    
+                        <button type= "button" class="btn btn-danger delete-button" data-id={{this.id}}>Delete Article</button>
+         {{/if}}
+    {{/each}}
 </div>
+        <div class="modal fade animated rollIn" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title"></div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info save-note-button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+       
 
-<footer class="footer">
-    <div class="container">
+<footer class="footer mt-4">
+    <div class="container text-center mt-4">
         <p>New York Times Mongo Scraper</p>
     </div>
 </footer>
