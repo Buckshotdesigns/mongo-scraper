@@ -1,4 +1,4 @@
-# mongo-scraper
+# New York Times Mongo Scraper
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/31428973/61897801-dbce8780-aee5-11e9-9b1a-f57a249a111e.gif">
